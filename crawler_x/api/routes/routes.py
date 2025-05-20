@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from crawler_x.aplication.api_request.use_cases import (
     ListarApi, ProcurarApi, CadastrarApi, DeletarApi, AtualizarApi
 )
-from crawler_x.aplication.script_runner.use_cases import ( ProcurarScript,listarScripts)
+from crawler_x.aplication.script_runner.use_cases import ( ProcurarScript, ListarScripts)
 from crawler_x.aplication.data_recover.use_cases import PegarDiretorioZippado
 from crawler_x.integration.dataBase.sqlalchemy_session import get_db
 from crawler_x.modules.api_request.model import ApiObject, ApiJsonData
@@ -198,7 +198,7 @@ def get_script_por_id(id: int, db: Session = Depends(get_db)):
 @router.get("/script")
 def get_listar_scripts(db: Session = Depends(get_db)):
     try:
-        use_case = listarScripts(db)
+        use_case = ListarScripts(db)
         return use_case.execute()
     except Exception as e:
         return JSONResponse(
